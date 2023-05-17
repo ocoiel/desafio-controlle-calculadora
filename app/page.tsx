@@ -1,3 +1,6 @@
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
 export default function IndexPage() {
   return (
     <main className="bg-background lg:container">
@@ -33,10 +36,31 @@ export default function IndexPage() {
           </div>
         </section>
         <section className="w-full rounded-sm bg-white p-10 lg:h-[467px] lg:w-[426px]">
-          <h2 className="text-[17px] font-medium leading-[26px] text-black">
+          <h2 className="mb-6 text-[17px] font-medium leading-[26px] text-black">
             Calculadora de Férias Online
           </h2>
-          <div className="form"></div>
+          <div className="form grid grid-cols-2 gap-x-4">
+            <div className="">
+              <Label>Salário Bruto</Label>
+              <Input defaultValue={"0,00"} />
+
+              <Label>Dependentes</Label>
+              <Input defaultValue={"0"} />
+
+              <Label>Abono pecuniário 1/3</Label>
+              <Input />
+            </div>
+            <div className="">
+              <Label>Média de hora extra</Label>
+              <Input defaultValue={"0,00"} />
+
+              <Label>Dias de férias</Label>
+              <Input defaultValue={"0"} />
+
+              <Label>Adiantar 13 parcela</Label>
+              <Input />
+            </div>
+          </div>
         </section>
       </div>
     </main>
