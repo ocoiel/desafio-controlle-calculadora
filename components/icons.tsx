@@ -14,8 +14,6 @@ export const Icons = {
   twitter: Twitter,
   logo: (props: LucideProps) => (
     <svg
-      width="122"
-      height="23"
       viewBox="0 0 122 23"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
