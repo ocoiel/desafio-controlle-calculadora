@@ -33,7 +33,10 @@ export default function IndexPage() {
           </div>
         </section>
         <section className="w-full rounded-sm bg-white p-10 lg:h-[467px] lg:w-[426px]">
-          Direita
+          <h2 className="text-[17px] font-medium leading-[26px] text-black">
+            Calculadora de Férias Online
+          </h2>
+          <div className="form"></div>
         </section>
       </div>
     </main>
