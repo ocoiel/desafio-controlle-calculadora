@@ -1,7 +1,7 @@
 export default function IndexPage() {
   return (
-    <main className="container bg-background">
-      <div className="flex justify-between p-7 md:py-16">
+    <main className="bg-background lg:container">
+      <div className="flex flex-col-reverse justify-between lg:flex-row lg:py-16">
         <section className="w-[452px]">
           <h1 className="text-[38px] font-medium leading-10 text-[#32323E]">
             Como utilizar a calculadora de férias
@@ -30,7 +30,7 @@ export default function IndexPage() {
             um trabalhador que recebe um salário de R$2400/mês.
           </p>
         </section>
-        <section className="h-[467px] w-[426px] rounded-sm bg-white">
+        <section className="w-full rounded-sm bg-white p-10 lg:h-[467px] lg:w-[426px]">
           Direita
         </section>
       </div>
