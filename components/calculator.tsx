@@ -1,3 +1,4 @@
+import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import {
@@ -75,6 +76,12 @@ export function Calculator() {
             </Select>
           </div>
         </div>
+      </div>
+      <div className="mt-10 flex flex-col items-center gap-y-2">
+        <Button className="w-full font-bold">Calcular</Button>
+        <Button className="w-full font-medium text-[#5F5F5F]" variant={"ghost"}>
+          Limpar
+        </Button>
       </div>
     </section>
   )
