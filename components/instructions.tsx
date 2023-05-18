@@ -1,6 +1,6 @@
 export function Instructions() {
   return (
-    <section className="mt-2 px-7 text-[#32323E] lg:w-[452px]">
+    <section className="mb-8 mt-2 px-7 text-[#32323E] lg:w-[452px]">
       <h1 className="max-w-sm text-[29px] font-medium leading-10 lg:text-[38px]">
         Como utilizar a calculadora de férias
       </h1>
