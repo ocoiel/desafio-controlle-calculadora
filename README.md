@@ -1,5 +1,7 @@
 # Desafio Controlle - Calculadora Ferias CLT
 
+[Figma](https://www.figma.com/file/kUkHTTNBCCHoFtDCPBtyKT/Test-Developer?type=design&node-id=0-1&t=2Bm1xk8fkkj0BmPu-0)
+
 ## Features
 
 - Radix UI Primitives
