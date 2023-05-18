@@ -15,48 +15,65 @@ export function Calculator() {
         Calculadora de Férias Online
       </h2>
       <div className="form grid grid-cols-2 gap-x-4 text-black">
-        <div className="">
-          <Label>Salário Bruto</Label>
-          <div className="relative">
-            <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
-              <span>R$</span>
+        <div className="grid gap-y-4">
+          <div>
+            <Label>Salário Bruto</Label>
+            <div className="relative">
+              <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
+                <span className="text-[13px]">R$</span>
+              </div>
+              <Input className="z-10 pl-11" defaultValue={"0,00"} />
             </div>
-            <Input className="z-10 pl-11" defaultValue={"0,00"} />
           </div>
 
-          <Label>Dependentes</Label>
-          <Input defaultValue={"0"} />
+          <div>
+            <Label>Dependentes</Label>
+            <Input defaultValue={"0"} />
+          </div>
 
-          <Label>Abono pecuniário 1/3</Label>
-          <Select>
-            <SelectTrigger className="">
-              <SelectValue placeholder="Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
+          <div>
+            <Label>Abono pecuniário 1/3</Label>
+            <Select>
+              <SelectTrigger className="">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="">
-          <Label>Média de hora extra</Label>
-          <Input defaultValue={"0,00"} />
+        <div className="grid gap-y-4">
+          <div>
+            <Label>Média de hora extra</Label>
+            <div className="relative">
+              <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
+                <span className="text-[13px]">R$</span>
+              </div>
+              <Input className="z-10 pl-11" defaultValue={"0,00"} />
+            </div>
+          </div>
 
-          <Label>Dias de férias</Label>
-          <Input defaultValue={"0"} />
+          <div>
+            <Label>Dias de férias</Label>
+            <Input defaultValue={"0"} />
+          </div>
 
-          <Label>Adiantar 13 parcela</Label>
-          <Select>
-            <SelectTrigger className="">
-              <SelectValue placeholder="Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
+          <div>
+            <Label>Adiantar 13 parcela?</Label>
+            <Select>
+              <SelectTrigger className="">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
     </section>
