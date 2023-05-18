@@ -10,6 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip"
 
 export function Calculator() {
   return (
@@ -35,7 +41,20 @@ export function Calculator() {
           </div>
 
           <div>
-            <Label>Abono pecuniário 1/3</Label>
+            <TooltipProvider delayDuration={50}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Label>Abono pecuniário 1/3</Label>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-[300px] text-sm">
+                  <p>
+                    Significa que você pode vender um terço (1/3) de suas férias
+                    para a empresa, recebendo uma remuneração a mais
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
             <Select>
               <SelectTrigger className="">
                 <SelectValue placeholder="Não" />
