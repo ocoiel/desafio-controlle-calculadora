@@ -1,9 +1,9 @@
 export default function Resultado() {
   return (
-    <div className="container">
+    <div className="lg:container">
       <section>
-        <h1>Cálculo</h1>
-        <div className="grid w-full grid-cols-2 rounded-[6px] bg-white text-[15px] text-[#32323E] md:h-40 md:p-4 lg:h-36 lg:p-6">
+        <h1 className="mb-5 mt-12 text-[22px] font-medium">Cálculo</h1>
+        <div className="grid w-full grid-cols-2 rounded-[6px] bg-white p-4 text-[15px] text-[#32323E] sm:h-48 md:p-4 lg:h-36 lg:px-7 lg:py-6">
           <div className="flex flex-col gap-y-3">
             <p>
               Sálario Bruto:{" "}
@@ -32,7 +32,7 @@ export default function Resultado() {
         </div>
       </section>
       <section>
-        <h1>Resultado</h1>
+        <h1 className="mb-5 mt-12 text-[22px] font-medium">Resultado</h1>
         {/* Tabela */}
       </section>
     </div>
