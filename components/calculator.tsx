@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
@@ -36,12 +38,11 @@ export function Calculator() {
             <Label>Abono pecuniário 1/3</Label>
             <Select>
               <SelectTrigger className="">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="Não" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="no">Não</SelectItem>
+                <SelectItem value="yes">Sim</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -66,19 +67,20 @@ export function Calculator() {
             <Label>Adiantar 13 parcela?</Label>
             <Select>
               <SelectTrigger className="">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="Não" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="no">Não</SelectItem>
+                <SelectItem value="yes">Sim</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
       </div>
       <div className="mt-10 flex flex-col items-center gap-y-2">
-        <Button className="w-full font-bold">Calcular</Button>
+        <Link className="w-full" href="/resultado">
+          <Button className="w-full font-bold">Calcular</Button>
+        </Link>
         <Button className="w-full font-medium text-[#5F5F5F]" variant={"ghost"}>
           Limpar
         </Button>
