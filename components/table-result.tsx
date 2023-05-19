@@ -1,9 +1,7 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,7 +16,7 @@ export function TableResult() {
             <TableHead className="w-2/5">Evento</TableHead>
             <TableHead>Ref</TableHead>
             <TableHead>Proventos</TableHead>
-            <TableHead className="mr-16 flex items-center justify-end">
+            <TableHead className="flex items-center justify-end lg:mr-16">
               Descontos
             </TableHead>
           </TableRow>
@@ -28,7 +26,7 @@ export function TableResult() {
             <TableCell className="w-2/5">Valor férias</TableCell>
             <TableCell>-</TableCell>
             <TableCell>R$ 600,00</TableCell>
-            <TableCell className="mr-32 flex items-center justify-end">
+            <TableCell className="flex items-center justify-end lg:mr-32">
               -
             </TableCell>
           </TableRow>
@@ -36,7 +34,7 @@ export function TableResult() {
             <TableCell className="w-2/5">1/3 férias</TableCell>
             <TableCell>-</TableCell>
             <TableCell>R$ 600,00</TableCell>
-            <TableCell className="mr-32 flex items-center justify-end">
+            <TableCell className="flex items-center justify-end lg:mr-32">
               -
             </TableCell>
           </TableRow>
@@ -44,37 +42,37 @@ export function TableResult() {
             <TableCell className="w-2/5">Abono pecuniário</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">1/3 abono pecuniário</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">Adiantamento 1 parcela 13</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">INSS</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">IRRF</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">Totais</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
           </TableRow>
         </TableBody>
       </Table>
