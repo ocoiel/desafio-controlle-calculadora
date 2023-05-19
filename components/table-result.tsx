@@ -79,7 +79,7 @@ export function TableResult() {
       <div className="flex w-full items-center justify-between border-t border-[#E8ECF2] text-sm">
         <div className="w-1/2 p-4">Valor líquido de férias</div>
         <div className="flex w-1/2 items-center justify-center bg-[#FEFFCF] p-4">
-          <span className="text-center">R$ 600,00</span>
+          R$ 600,00
         </div>
       </div>
     </div>

@@ -1,4 +1,7 @@
 import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -17,7 +20,20 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip"
 
+export const calculatorSchema = z.object({})
+
+export type Calculator = z.infer<typeof calculatorSchema>
+
 export function Calculator() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+    resolver: zodResolver(calculatorSchema),
+  })
+
   return (
     <section className="w-full rounded-sm bg-white p-8 lg:h-[467px] lg:w-[426px]">
       <h2 className="mb-6 text-[17px] font-medium leading-[26px] text-black">
