@@ -1,9 +1,11 @@
+import { TableResult } from "@/components/table-result"
+
 export default function Resultado() {
   return (
     <div className="lg:container">
       <section>
         <h1 className="mb-5 mt-12 text-[22px] font-medium">Cálculo</h1>
-        <div className="grid w-full grid-cols-2 rounded-[6px] bg-white p-4 text-[15px] text-[#32323E] sm:h-48 md:p-4 lg:h-36 lg:px-7 lg:py-6">
+        <div className="grid w-full grid-cols-2 rounded-[6px] bg-white p-4 text-[15px] text-[#32323E] shadow-sm sm:h-48 md:p-4 lg:h-36 lg:px-7 lg:py-6">
           <div className="flex flex-col gap-y-3">
             <p>
               Sálario Bruto:{" "}
@@ -33,7 +35,7 @@ export default function Resultado() {
       </section>
       <section>
         <h1 className="mb-5 mt-12 text-[22px] font-medium">Resultado</h1>
-        {/* Tabela */}
+        <TableResult />
       </section>
     </div>
   )
