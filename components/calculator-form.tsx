@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import { FormValues, formSchema } from "@/types/form-schema"
+import { FormValues, defaultValues, formSchema } from "@/types/form-schema"
 
 import {
   Form,
@@ -32,7 +32,8 @@ import {
 export function CalculatorForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    mode: "onChange",
+    defaultValues,
+    mode: "onSubmit",
   })
 
   function onSubmit(data: FormValues) {
@@ -49,46 +50,41 @@ export function CalculatorForm() {
                 control={form.control}
                 name="salary"
                 render={({ field }) => (
+                  // I have an error with uncontrolled input that i have to resolve
                   <FormItem>
-                    <Label>Salário Bruto</Label>
+                    <FormLabel>Salário Bruto</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
                           <span className="text-[13px]">R$</span>
                         </div>
                         <Input
-                          type="number"
+                          // type="number"
                           className="z-10 pl-11"
                           placeholder="0,00"
-                          required
                           {...field}
                         />
                       </div>
                     </FormControl>
-                    {/* <FormMessage /> Errors display */}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-            {/* <div>
-              <Label>Salário Bruto</Label>
-              <div className="relative">
-                <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
-                  <span className="text-[13px]">R$</span>
-                </div>
-                <Input
-                  name="salary"
-                  type="number"
-                  required
-                  className="z-10 pl-11"
-                  placeholder="0,00"
-                />
-              </div>
-            </div> */}
 
             <div>
-              <Label>Dependentes</Label>
-              <Input name="deps" defaultValue={"0"} />
+              <FormField
+                control={form.control}
+                name="deps"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Dependentes</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
 
             <div>
@@ -106,48 +102,97 @@ export function CalculatorForm() {
                 </Tooltip>
               </TooltipProvider>
 
-              <Select name="abono" defaultValue="no">
-                <SelectTrigger className="">
-                  <SelectValue placeholder="Não" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="no">Não</SelectItem>
-                  <SelectItem value="yes">Sim</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormField
+                control={form.control}
+                name="abono"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Não" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="no">Não</SelectItem>
+                        <SelectItem value="yes">Sim</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
           <div className="grid gap-y-4">
             <div>
-              <Label>Média de hora extra</Label>
-              <div className="relative">
-                <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
-                  <span className="text-[13px]">R$</span>
-                </div>
-                <Input
-                  name="extra"
-                  className="z-10 pl-11"
-                  defaultValue={"0,00"}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="extra"
+                render={({ field }) => (
+                  // I have an error with uncontrolled input that i have to resolve
+                  <FormItem>
+                    <FormLabel>Média de hora extra</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <div className="boder-[#CECED8] absolute inset-0 z-0 my-[1px] ml-[1px] flex h-[38px] w-10 items-center justify-center rounded border-0 border-y border-l bg-[#EEF2F8]">
+                          <span className="text-[13px]">R$</span>
+                        </div>
+                        <Input
+                          type="number"
+                          className="z-10 pl-11"
+                          placeholder="0,00"
+                          {...field}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <div>
-              <Label>Dias de férias</Label>
-              <Input name="vacationDays" defaultValue={"0"} />
+              <FormField
+                control={form.control}
+                name="vacationDays"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Dias de férias</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
 
             <div>
-              <Label>Adiantar 13 parcela?</Label>
-              <Select name="parcela13" defaultValue="no">
-                <SelectTrigger className="">
-                  <SelectValue placeholder="Não" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="no">Não</SelectItem>
-                  <SelectItem value="yes">Sim</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormField
+                control={form.control}
+                name="thirteenth"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Adiantar 13 parcela?</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Não" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="no">Não</SelectItem>
+                        <SelectItem value="yes">Sim</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
         </div>
