@@ -10,15 +10,12 @@ export function Calculator() {
         Calculadora de Férias Online
       </h2>
       <CalculatorForm />
+      {/* Vai ter q sair daqui */}
       <div className="mt-10 flex flex-col items-center gap-y-2">
         <Link className="w-full" href="/resultado">
           <Button className="w-full font-bold">Calcular</Button>
         </Link>
-        <Button
-          className="w-full font-medium text-[#5F5F5F]"
-          variant={"ghost"}
-          type="submit"
-        >
+        <Button className="w-full font-medium text-[#5F5F5F]" variant={"ghost"}>
           Limpar
         </Button>
       </div>
