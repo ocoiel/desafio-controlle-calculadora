@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 
 import { FormValues, defaultValues, formSchema } from "@/types/form-schema"
 
+import { Button } from "./ui/button"
 import {
   Form,
   FormControl,
@@ -59,9 +60,10 @@ export function CalculatorForm() {
                           <span className="text-[13px]">R$</span>
                         </div>
                         <Input
-                          // type="number"
+                          type="number"
                           className="z-10 pl-11"
                           placeholder="0,00"
+                          required
                           {...field}
                         />
                       </div>
@@ -149,6 +151,7 @@ export function CalculatorForm() {
                       </div>
                     </FormControl>
                     <FormMessage />
+                    {/* Bug -> Expected number, received string  */}
                   </FormItem>
                 )}
               />
@@ -162,8 +165,9 @@ export function CalculatorForm() {
                   <FormItem>
                     <FormLabel>Dias de férias</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" required {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -195,6 +199,15 @@ export function CalculatorForm() {
               />
             </div>
           </div>
+        </div>
+        <div className="mt-10 flex flex-col items-center gap-y-2">
+          <Button className="w-full font-bold">Calcular</Button>
+          <Button
+            className="w-full font-medium text-[#5F5F5F]"
+            variant={"ghost"}
+          >
+            Limpar
+          </Button>
         </div>
       </form>
     </Form>
