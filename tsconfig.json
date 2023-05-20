@@ -6,6 +6,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    // "types": ["react-dom/experimental"],
     "incremental": true,
     "esModuleInterop": true,
     "module": "esnext",
