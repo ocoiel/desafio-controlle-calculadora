@@ -71,6 +71,7 @@ export function CalculatorForm() {
                           type="number"
                           className="z-10 pl-11"
                           placeholder="0,00"
+                          min={0}
                           required
                           {...field}
                         />
@@ -90,7 +91,7 @@ export function CalculatorForm() {
                   <FormItem>
                     <FormLabel>Dependentes</FormLabel>
                     <FormControl>
-                      <Input placeholder="0" type="number" {...field} />
+                      <Input placeholder="0" min={0} type="number" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -154,12 +155,12 @@ export function CalculatorForm() {
                           type="number"
                           className="z-10 pl-11"
                           placeholder="0,00"
+                          min={0}
                           {...field}
                         />
                       </div>
                     </FormControl>
                     <FormMessage />
-                    {/* Bug -> Expected number, received string  */}
                   </FormItem>
                 )}
               />
@@ -176,6 +177,7 @@ export function CalculatorForm() {
                       <Input
                         type="number"
                         placeholder="0"
+                        min={0}
                         required
                         {...field}
                       />
