@@ -17,6 +17,7 @@ export function TableResult({ data }: { data: FormValues }) {
     realAliquotINSS,
     realAliquotIRRF,
     hasThirteenth,
+    hasAbono,
     inssVal,
     irrfVal,
     totalDiscount,
@@ -39,72 +40,69 @@ export function TableResult({ data }: { data: FormValues }) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-2/5">Evento</TableHead>
+            <TableHead>Evento</TableHead>
             <TableHead>Ref</TableHead>
             <TableHead>Proventos</TableHead>
-            <TableHead className="flex items-center justify-end lg:mr-16">
-              Descontos
-            </TableHead>
+            <TableHead>Descontos</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell className="w-2/5">Valor férias</TableCell>
+            <TableCell>Valor férias</TableCell>
             <TableCell>-</TableCell>
             <TableCell>R$ {vacationInitialValue.toFixed(2)}</TableCell>
-            <TableCell className="flex items-center justify-end lg:mr-32">
-              -
-            </TableCell>
+            <TableCell>-</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="w-2/5">1/3 férias</TableCell>
+            <TableCell>1/3 férias</TableCell>
             <TableCell>-</TableCell>
             <TableCell>R$ {(vacationInitialValue / 3).toFixed(2)}</TableCell>
-            <TableCell className="flex items-center justify-end lg:mr-32">
-              -
-            </TableCell>
+            <TableCell>-</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="w-2/5">Abono pecuniário</TableCell>
-            <TableCell></TableCell>
-            <TableCell>R$ {abonoValue.toFixed(2)}</TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="w-2/5">1/3 abono pecuniário</TableCell>
-            <TableCell></TableCell>
-            <TableCell>R$ {(abonoValue / 3).toFixed(2)}</TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="w-2/5">Adiantamento 1 parcela 13</TableCell>
+            <TableCell>Abono pecuniário</TableCell>
             <TableCell></TableCell>
             <TableCell>
-              R$ {hasThirteenth ? (parseInt(data.salary) / 2).toFixed(2) : null}
+              {hasAbono ? `R$ ${abonoValue.toFixed(2)}` : null}
             </TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            <TableCell></TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="w-2/5">INSS</TableCell>
+            <TableCell>1/3 abono pecuniário</TableCell>
+            <TableCell></TableCell>
+            <TableCell>
+              {hasAbono ? `R$ ${(abonoValue / 3).toFixed(2)}` : null}
+            </TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Adiantamento 1 parcela 13</TableCell>
+            <TableCell></TableCell>
+            <TableCell>
+              {hasThirteenth
+                ? `R$ ${(parseInt(data.salary) / 2).toFixed(2)}`
+                : null}
+            </TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INSS</TableCell>
             <TableCell>{realAliquotINSS}%</TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end">
-              R$ {inssVal.toFixed(2)}
-            </TableCell>
+            <TableCell>R$ {inssVal.toFixed(2)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="w-2/5">IRRF</TableCell>
+            <TableCell>IRRF</TableCell>
             <TableCell>{realAliquotIRRF}%</TableCell>
             <TableCell></TableCell>
-            <TableCell className="mr-32 flex items-center justify-end">
-              R$ {irrfVal.toFixed(2)}
-            </TableCell>
+            <TableCell>R$ {irrfVal.toFixed(2)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="w-3/5">Totais</TableCell>
+            <TableCell>Totais</TableCell>
             <TableCell></TableCell>
 
-            <TableCell>
+            <TableCell className="font-semibold text-green-600">
+              R${" "}
               {(
                 vacationInitialValue +
                 oneThirdVacation +
@@ -113,7 +111,10 @@ export function TableResult({ data }: { data: FormValues }) {
                 (hasThirteenth ? parseInt(data.salary) / 2 : 0)
               ).toFixed(2)}
             </TableCell>
-            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
+            <TableCell className="text-red-500">
+              {" "}
+              - R${(inssVal + irrfVal).toFixed(2)}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
