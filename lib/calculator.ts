@@ -1,90 +1,136 @@
 import { FormValues } from "@/types/form-schema"
 import { INSS, IRRF } from "@/types/tax"
 
+const VALUE_DISCOUNT_FIX = INSS[4].minValue * 0.14 - 163.82
+const VALUE_DEPENDENT_DEDUCTIONS = 189.59
+
 export function calculator(data: FormValues) {
-  // Transformando strings em inteiros
   const salaryRaw = parseInt(data.salary)
   const deps = parseInt(data.deps)
   const vacationDays = parseInt(data.vacationDays)
   const extra = parseInt(data.extra)
 
-  // Transformando strings em boleanos
   const hasAbono = data.abono === "no" ? false : true
   const hasThirteenth = data.thirteenth === "no" ? false : true
 
-  // Passo 1 - Cálculo do acréscimo de 1/3 sobre o salário base
-  const increaseOneThird = salaryRaw * (1 / 3)
+  let liquidVacation = ((salaryRaw + extra) / 30) * vacationDays
+  const thirdVacation = liquidVacation / 3
 
-  // Passo 1.1 - Separando o valor inicial sem as outras variáveis
-  const vacationInitialValue = salaryRaw
+  const totalValueVacation = liquidVacation + thirdVacation
 
-  // Passo 2 - Primeiro cálculo, baseado no numero de dias de férias
-  let liquidVacation = (salaryRaw + increaseOneThird) * (vacationDays / 30)
+  const vacationInitialValue = liquidVacation
 
-  // Passo 3 - Adicionar média de horas extras
-  const extraRate = salaryRaw / 220 // Considerando 220 horas mensais (8h/dia)
-  const extraTotal = extraRate * extra * (vacationDays / 30)
-  liquidVacation += extraTotal
-
-  // Passo 4 - Verificar se tem abono pecuniário (venda de férias)
   let abonoValue = 0
   if (hasAbono) {
-    abonoValue = liquidVacation / 3
+    abonoValue = salaryRaw / 3
     const abonoOneThird = abonoValue / 3
     liquidVacation += abonoValue + abonoOneThird
   }
 
-  // Passo 5 - Verificar se tem adiantamento do décimo terceiro salário
+  let thirteenthValue = 0
   if (hasThirteenth) {
-    const thirteenthValue = salaryRaw / 2 // Considerando 50% do salário base (isso é variável)
+    thirteenthValue = salaryRaw / 2 // Considerando 50% do salário base (isso é variável)
     liquidVacation += thirteenthValue
   }
 
-  // Passo 6 - Subtrair os descontos do INSS e IRRF
-  const discountINSS = discountINSSCalc(salaryRaw)
-  const discountIRRF = discountIRRFCalc(salaryRaw, deps)
-  liquidVacation -= discountINSS + discountIRRF
+  const { inssVal, irrfVal, totalDiscount } = calculateINSSandIRRF(
+    totalValueVacation,
+    deps
+  )
+
+  const realAliquotINSS = ((inssVal / totalValueVacation) * 100)
+    .toFixed(2)
+    .replace(".", ",")
+  const realAliquotIRRF = ((irrfVal / totalValueVacation) * 100)
+    .toFixed(2)
+    .replace(".", ",")
 
   return {
     vacationInitialValue,
     liquidVacation,
     abonoValue,
     hasAbono,
+    thirteenthValue,
     hasThirteenth,
-    discountINSS,
-    discountIRRF,
+    inssVal,
+    irrfVal,
+    realAliquotINSS,
+    realAliquotIRRF,
+    totalDiscount,
   }
 }
 
-function discountINSSCalc(salary: number) {
-  let discountINSS = 0
+function calcularINSS(value: number) {
+  const inssValues = INSS.filter(
+    (el) => el.minValue <= value && value <= el.maxValue
+  )[0]
 
-  for (const range of INSS) {
-    if (salary > range.lastRange) {
-      discountINSS += (range.lastRange - range.initialRange + 1) * range.aliquot
-    } else if (salary > range.initialRange) {
-      discountINSS += (salary - range.initialRange + 1) * range.aliquot
+  const firstRange = INSS[0].maxValue * (INSS[0].percent / 100)
+  const secondRange =
+    (INSS[1].maxValue - INSS[0].maxValue) * (INSS[1].percent / 100)
+  const thirdRange =
+    (INSS[2].maxValue - INSS[1].maxValue) * (INSS[2].percent / 100)
+
+  let inssVal = 0
+  switch (inssValues.range) {
+    case 1:
+      inssVal = (inssValues.percent / 100) * value
       break
-    }
+    case 2:
+      let secondRangeSalary =
+        (value - INSS[0].maxValue) * (INSS[1].percent / 100)
+      inssVal = firstRange + secondRangeSalary
+      break
+    case 3:
+      let thirdRangeSalary =
+        (value - INSS[1].maxValue) * (INSS[2].percent / 100)
+      inssVal = firstRange + secondRange + thirdRangeSalary
+      break
+    case 4:
+      let fourthRangeSalary =
+        (value - INSS[2].maxValue) * (INSS[3].percent / 100)
+      inssVal = firstRange + secondRange + thirdRange + fourthRangeSalary
+      break
+    case 5:
+      inssVal = VALUE_DISCOUNT_FIX
+      break
+    default:
+      inssVal = 0
   }
 
-  return discountINSS
+  // Era pra ser null no lugar do 0
+  let aliquota = inssVal !== VALUE_DISCOUNT_FIX ? inssVal / value : 0
+  return {
+    inssVal: +inssVal.toFixed(2),
+    inssPorcent: +aliquota,
+  }
 }
 
-function discountIRRFCalc(salary: number, deps: number) {
-  let discountIRRF = 0
+function calculateINSSandIRRF(value: number, numDependents: number) {
+  const { inssVal, inssPorcent } = calcularINSS(value)
 
-  for (const range of IRRF) {
-    if (salary > range.lastRange) {
-      discountIRRF +=
-        (range.lastRange - range.initialRange + 1) * range.aliquot -
-        range.deduction
-    } else if (salary > range.initialRange) {
-      discountIRRF +=
-        (salary - range.initialRange + 1) * range.aliquot - range.deduction
-      break
-    }
+  const irrfValues = IRRF.filter(
+    (el) =>
+      el.minValue < value - inssVal &&
+      (el.maxValue === null || el.maxValue > value - inssVal)
+  )[0]
+
+  const irrfBase = value - inssVal - numDependents * VALUE_DEPENDENT_DEDUCTIONS
+  const irrfPorcent = (irrfValues && irrfValues.percent / 100) || 0
+  const irrfDeduc = (irrfValues && irrfValues.parcelTax) || 0
+  const irrfVal = Math.max(irrfBase * irrfPorcent - irrfDeduc, 0)
+  const totalDiscount = +(inssVal + irrfVal).toFixed(2)
+
+  const aliquotaIrrf = (irrfVal / irrfBase) * 100
+
+  return {
+    inssVal: inssVal || 0,
+    inssPorcent: inssPorcent || 0,
+    irrfVal: irrfVal || 0,
+    irrfPorcent: irrfPorcent || 0,
+    grossVal: +value.toFixed(2),
+    totalDiscount,
+    liquidVal: value - totalDiscount,
+    aliquotaIrrf: +aliquotaIrrf.toFixed(2),
   }
-
-  return discountIRRF
 }

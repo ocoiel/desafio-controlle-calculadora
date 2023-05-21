@@ -41,7 +41,7 @@ export default function Resultado() {
             <p>
               Adiantar 1ª parcela 13º:{" "}
               <span className="ml-1 font-semibold">
-                {data.thirteenth ? "Não" : "Sim"}
+                {data.thirteenth === "no" ? "Não" : "Sim"}
               </span>
             </p>
           </div>

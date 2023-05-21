@@ -13,16 +13,25 @@ import {
 export function TableResult({ data }: { data: FormValues }) {
   const {
     vacationInitialValue,
-    liquidVacation,
     abonoValue,
+    realAliquotINSS,
+    realAliquotIRRF,
     hasThirteenth,
-    discountINSS,
-    discountIRRF,
+    inssVal,
+    irrfVal,
+    totalDiscount,
   } = calculator(data)
 
   const oneThirdVacation = vacationInitialValue / 3
-  const percentDiscountINSS =
-    discountINSS / (vacationInitialValue + oneThirdVacation)
+  // const percentDiscountINSS =
+  //   discountINSS / (vacationInitialValue + oneThirdVacation)
+  const total =
+    vacationInitialValue +
+    oneThirdVacation +
+    abonoValue +
+    abonoValue / 3 +
+    (hasThirteenth ? parseInt(data.salary) / 2 : 0) -
+    totalDiscount
 
   return (
     <div className="mb-8 rounded-lg bg-white text-[#32323E] shadow-sm">
@@ -59,48 +68,49 @@ export function TableResult({ data }: { data: FormValues }) {
             <TableCell className="w-2/5">Abono pecuniário</TableCell>
             <TableCell></TableCell>
             <TableCell>R$ {abonoValue.toFixed(2)}</TableCell>
-            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
+            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">1/3 abono pecuniário</TableCell>
             <TableCell></TableCell>
             <TableCell>R$ {(abonoValue / 3).toFixed(2)}</TableCell>
-            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
+            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">Adiantamento 1 parcela 13</TableCell>
             <TableCell></TableCell>
             <TableCell>
-              R$ {hasThirteenth ?? (vacationInitialValue / 2).toFixed(2)}
+              R$ {hasThirteenth ? (parseInt(data.salary) / 2).toFixed(2) : null}
             </TableCell>
-            {/* <TableCell className="mr-32 flex items-center justify-end"></TableCell> */}
+            <TableCell className="mr-32 flex items-center justify-end"></TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">INSS</TableCell>
-            <TableCell>{(percentDiscountINSS * 100).toFixed(2)}%</TableCell>
+            <TableCell>{realAliquotINSS}%</TableCell>
             <TableCell></TableCell>
             <TableCell className="mr-32 flex items-center justify-end">
-              R$ {discountINSS.toFixed(2)}
+              R$ {inssVal.toFixed(2)}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="w-2/5">IRRF</TableCell>
-            <TableCell>???%</TableCell>
+            <TableCell>{realAliquotIRRF}%</TableCell>
             <TableCell></TableCell>
             <TableCell className="mr-32 flex items-center justify-end">
-              R$ {discountIRRF.toFixed(2)}
+              R$ {irrfVal.toFixed(2)}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="w-3/5">Totais</TableCell>
-            {/* <TableCell></TableCell> */}
+            <TableCell></TableCell>
+
             <TableCell>
               {(
                 vacationInitialValue +
                 oneThirdVacation +
                 abonoValue +
                 abonoValue / 3 +
-                (hasThirteenth ? vacationInitialValue / 2 : 0)
+                (hasThirteenth ? parseInt(data.salary) / 2 : 0)
               ).toFixed(2)}
             </TableCell>
             <TableCell className="mr-32 flex items-center justify-end"></TableCell>
@@ -110,7 +120,7 @@ export function TableResult({ data }: { data: FormValues }) {
       <div className="flex w-full items-center justify-between border-t border-[#E8ECF2] text-sm">
         <div className="w-1/2 p-4">Valor líquido de férias</div>
         <div className="flex w-1/2 items-center justify-center bg-[#FEFFCF] p-4">
-          R$ {liquidVacation.toFixed(2)}
+          R$ {total.toFixed(2)}
         </div>
       </div>
     </div>
