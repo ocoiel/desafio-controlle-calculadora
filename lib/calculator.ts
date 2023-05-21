@@ -15,11 +15,11 @@ export function calculator(data: FormValues) {
   // Passo 1 - Cálculo do acréscimo de 1/3 sobre o salário base
   const increaseOneThird = salaryRaw * (1 / 3)
 
+  // Passo 1.1 - Separando o valor inicial sem as outras variáveis
+  const vacationInitialValue = salaryRaw
+
   // Passo 2 - Primeiro cálculo, baseado no numero de dias de férias
   let liquidVacation = (salaryRaw + increaseOneThird) * (vacationDays / 30)
-
-  // Passo 2.1 - Separando o valor inicial sem as outras variáveis
-  const vacationInitialValue = liquidVacation
 
   // Passo 3 - Adicionar média de horas extras
   const extraRate = salaryRaw / 220 // Considerando 220 horas mensais (8h/dia)
@@ -27,8 +27,9 @@ export function calculator(data: FormValues) {
   liquidVacation += extraTotal
 
   // Passo 4 - Verificar se tem abono pecuniário (venda de férias)
+  let abonoValue = 0
   if (hasAbono) {
-    const abonoValue = liquidVacation / 3
+    abonoValue = liquidVacation / 3
     const abonoOneThird = abonoValue / 3
     liquidVacation += abonoValue + abonoOneThird
   }
@@ -44,7 +45,15 @@ export function calculator(data: FormValues) {
   const discountIRRF = discountIRRFCalc(salaryRaw, deps)
   liquidVacation -= discountINSS + discountIRRF
 
-  return { vacationInitialValue, liquidVacation }
+  return {
+    vacationInitialValue,
+    liquidVacation,
+    abonoValue,
+    hasAbono,
+    hasThirteenth,
+    discountINSS,
+    discountIRRF,
+  }
 }
 
 function discountINSSCalc(salary: number) {
