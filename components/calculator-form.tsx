@@ -199,10 +199,10 @@ export function CalculatorForm() {
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Não" />
+                          <SelectValue placeholder="Não" className="z-50" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         <SelectItem value="no">Não</SelectItem>
                         <SelectItem value="yes">Sim</SelectItem>
                       </SelectContent>
