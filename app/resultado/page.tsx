@@ -12,7 +12,9 @@ export default function Resultado() {
   return (
     <div className="lg:container">
       <section className="p-4 lg:p-0">
-        <h1 className="mb-5 mt-12 text-[22px] font-medium">Cálculo</h1>
+        <h1 className="mb-4 text-[22px] font-medium lg:mb-5 lg:mt-12">
+          Cálculo
+        </h1>
         <DesktopCalcSumary data={data} />
         <MobileCalcSumary data={data} />
       </section>

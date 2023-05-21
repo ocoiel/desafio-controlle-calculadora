@@ -24,8 +24,7 @@ export function TableResult({ data }: { data: FormValues }) {
   } = calculator(data)
 
   const oneThirdVacation = vacationInitialValue / 3
-  // const percentDiscountINSS =
-  //   discountINSS / (vacationInitialValue + oneThirdVacation)
+
   const total =
     vacationInitialValue +
     oneThirdVacation +
