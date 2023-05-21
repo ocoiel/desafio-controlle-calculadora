@@ -140,7 +140,7 @@ export function TableResult({ data }: { data: FormValues }) {
             </TableCell>
             <TableCell className="text-red-500">
               {" "}
-              - R${(inssVal + irrfVal).toFixed(2)}
+              R${(inssVal + irrfVal).toFixed(2)}
             </TableCell>
           </TableRow>
         </TableBody>
