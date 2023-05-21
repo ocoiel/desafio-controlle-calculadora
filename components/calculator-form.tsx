@@ -90,7 +90,7 @@ export function CalculatorForm() {
                   <FormItem>
                     <FormLabel>Dependentes</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input placeholder="0" type="number" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -173,7 +173,12 @@ export function CalculatorForm() {
                   <FormItem>
                     <FormLabel>Dias de férias</FormLabel>
                     <FormControl>
-                      <Input type="number" required {...field} />
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        required
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -209,10 +214,13 @@ export function CalculatorForm() {
           </div>
         </div>
         <div className="mt-10 flex flex-col items-center gap-y-2">
-          <Button className="w-full font-bold">Calcular</Button>
+          <Button className="w-full font-bold" type="submit">
+            Calcular
+          </Button>
           <Button
             className="w-full font-medium text-[#5F5F5F]"
             variant={"ghost"}
+            type="reset"
           >
             Limpar
           </Button>
