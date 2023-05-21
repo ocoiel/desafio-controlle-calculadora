@@ -1,4 +1,5 @@
 import { FormValues } from "@/types/form-schema"
+import { INSS, IRRF } from "@/types/tax"
 
 export function calculator(data: FormValues) {
   // Transformando strings em inteiros
@@ -46,6 +47,35 @@ export function calculator(data: FormValues) {
   return { vacationInitialValue, liquidVacation }
 }
 
-function discountINSSCalc(salary: number): number {}
+function discountINSSCalc(salary: number) {
+  let discountINSS = 0
 
-function discountIRRFCalc(salary: number, deps: number): number {}
+  for (const range of INSS) {
+    if (salary > range.lastRange) {
+      discountINSS += (range.lastRange - range.initialRange + 1) * range.aliquot
+    } else if (salary > range.initialRange) {
+      discountINSS += (salary - range.initialRange + 1) * range.aliquot
+      break
+    }
+  }
+
+  return discountINSS
+}
+
+function discountIRRFCalc(salary: number, deps: number) {
+  let discountIRRF = 0
+
+  for (const range of IRRF) {
+    if (salary > range.lastRange) {
+      discountIRRF +=
+        (range.lastRange - range.initialRange + 1) * range.aliquot -
+        range.deduction
+    } else if (salary > range.initialRange) {
+      discountIRRF +=
+        (salary - range.initialRange + 1) * range.aliquot - range.deduction
+      break
+    }
+  }
+
+  return discountIRRF
+}
