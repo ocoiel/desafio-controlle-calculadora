@@ -3,6 +3,7 @@ import { FormValues } from "@/types/form-schema"
 export function calculator(data: FormValues) {
   // Transformando strings em inteiros
   const salaryRaw = parseInt(data.salary)
+  const deps = parseInt(data.deps)
   const vacationDays = parseInt(data.vacationDays)
   const extra = parseInt(data.extra)
 
@@ -37,9 +38,14 @@ export function calculator(data: FormValues) {
     liquidVacation += thirteenthValue
   }
 
+  // Passo 6 - Subtrair os descontos do INSS e IRRF
+  const discountINSS = discountINSSCalc(salaryRaw)
+  const discountIRRF = discountIRRFCalc(salaryRaw, deps)
+  liquidVacation -= discountINSS + discountIRRF
+
   return { vacationInitialValue, liquidVacation }
 }
 
-export function discountINSSTax(salary: number) {}
+function discountINSSCalc(salary: number): number {}
 
-export function discountIRRFTax(salary: number, deps: number) {}
+function discountIRRFCalc(salary: number, deps: number): number {}
