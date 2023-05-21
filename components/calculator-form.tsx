@@ -1,9 +1,12 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAtom } from "jotai"
 import { useForm } from "react-hook-form"
 
 import { FormValues, defaultValues, formSchema } from "@/types/form-schema"
+import { formDataAtom } from "@/lib/atoms"
 
 import { Button } from "./ui/button"
 import {
@@ -31,6 +34,9 @@ import {
 } from "./ui/tooltip"
 
 export function CalculatorForm() {
+  const { push } = useRouter()
+  const [, setData] = useAtom(formDataAtom)
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -38,7 +44,9 @@ export function CalculatorForm() {
   })
 
   function onSubmit(data: FormValues) {
+    setData(data)
     console.log(data)
+    push("/resultado")
   }
 
   return (

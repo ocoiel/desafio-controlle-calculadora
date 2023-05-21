@@ -1,3 +1,5 @@
+import { FormValues } from "@/types/form-schema"
+
 import {
   Table,
   TableBody,
@@ -7,9 +9,12 @@ import {
   TableRow,
 } from "./ui/table"
 
-export function TableResult() {
+export function TableResult({ data }: { data: FormValues }) {
+  // const liquidValue = calculate(data)
+
   return (
     <div className="mb-8 rounded-lg bg-white text-[#32323E] shadow-sm">
+      <pre>{JSON.stringify(data, null, 2)}</pre>
       <Table>
         <TableHeader>
           <TableRow>
